@@ -1,6 +1,7 @@
 import React from "react";
 import QuizList from "./QuizList";
 import QuizForm from "./QuizForm";
+import "../../../styles/teacher_dashboard.css";
 
 export default function TeacherDashboard() {
   return (
