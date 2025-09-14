@@ -1,13 +1,20 @@
+// src/api/api.js
 import axios from "axios";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json" }
 });
 
-export const setAuthToken = (token) => {
-  if (token) api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  else delete api.defaults.headers.common["Authorization"];
-};
+api.interceptors.request.use((config) => {
+  const raw = localStorage.getItem("quizUser");
+  if (raw) {
+    try {
+      const user = JSON.parse(raw);
+      if (user.accessToken) config.headers.Authorization = `Bearer ${user.accessToken}`;
+    } catch {}
+  }
+  return config;
+}, (err) => Promise.reject(err));
 
 export default api;
