@@ -1,0 +1,86 @@
+/* Root Layout */
+.dashboard-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: #f3f4f6; /* Light Gray */
+  padding: 20px;
+}
+
+/* Header */
+.dashboard-header.student {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #10b981; /* Emerald green */
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Main Layout */
+.dashboard-main {
+  display: flex;
+  justify-content: center;
+}
+
+/* Quizzes Section */
+.student-quizzes {
+  width: 100%;
+  max-width: 800px;
+}
+
+.student-quizzes h3 {
+  margin-bottom: 15px;
+  color: #111827;
+}
+
+/* Quiz Card */
+.quiz-card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+.quiz-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.quiz-card h4 {
+  margin-bottom: 8px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.quiz-card p {
+  margin: 3px 0;
+  color: #6b7280;
+}
+
+/* Buttons */
+.btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+.btn:hover {
+  background: #059669;
+}
+
+.quiz-locked {
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 8px;
+}

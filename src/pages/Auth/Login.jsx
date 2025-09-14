@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";   
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
@@ -6,6 +7,7 @@ export default function Login({ switchToRegister }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPwd, setShowPwd] = useState(false);
+  const navigate = useNavigate();   
 
   const onChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -16,12 +18,10 @@ export default function Login({ switchToRegister }) {
       return alert("Please fill email and password");
     setLoading(true);
     try {
-      // TODO: replace with API call
       console.log("LOGIN submit", form);
       await new Promise((r) => setTimeout(r, 600));
-      alert(
-        "Demo: login submitted — integrate API in authApi.js and AuthContext"
-      );
+
+      navigate("/student"); 
     } catch (err) {
       console.error(err);
       alert(err?.message || "Login failed");
