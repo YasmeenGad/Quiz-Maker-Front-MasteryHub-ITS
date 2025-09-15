@@ -1,80 +1,44 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";   
+import { useNavigate } from "react-router-dom";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import { loginUser } from "../../services/api";
 
 export default function Login({ switchToRegister }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
-  const [showPwd, setShowPwd] = useState(false);
-  const navigate = useNavigate();   
+  const navigate = useNavigate();
 
   const onChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.email || !form.password)
-      return alert("Please fill email and password");
-    setLoading(true);
-    try {
-      console.log("LOGIN submit", form);
-      await new Promise((r) => setTimeout(r, 600));
+  e.preventDefault();
+  if (!form.email || !form.password) return alert("Please fill email and password");
 
-      navigate("/student"); 
-    } catch (err) {
-      console.error(err);
-      alert(err?.message || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  try {
+    const res = await loginUser(form);
+    if (!res.success) return alert(res.message);
+
+    const { access_token, user } = res.data;
+    localStorage.setItem("token", access_token);
+    localStorage.setItem("role", user.role);
+    if (user.role === "student") navigate("/teacher");
+    else navigate("/teacher");
+  } catch (err) {
+    alert(err);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
-    <form id="login-form" className="form" onSubmit={onSubmit}>
-      <Input
-        id="login-email"
-        label="Email"
-        name="email"
-        type="email"
-        value={form.email}
-        onChange={onChange}
-      />
-
-      <div className="form-group">
-        <label className="label" htmlFor="login-password">
-          Password
-        </label>
-        <div className="pwd-wrap">
-          <input
-            id="login-password"
-            name="password"
-            value={form.password}
-            onChange={onChange}
-            placeholder="Your password"
-            type={showPwd ? "text" : "password"}
-            className="input"
-            aria-required
-          />
-          <button
-            id="login-showpwd"
-            type="button"
-            className="icon-btn"
-            onClick={() => setShowPwd((s) => !s)}
-            aria-label="Toggle password visibility"
-          >
-            {showPwd ? "Hide" : "Show"}
-          </button>
-        </div>
-      </div>
-
-      <div id="login-extras" className="extras">
-        <label className="checkbox">
-          <input id="login-remember" type="checkbox" /> Remember me
-        </label>
-      </div>
-
-      <Button id="btn-login" type="submit" disabled={loading}>
+    <form className="form" onSubmit={onSubmit}>
+      <Input label="Email" name="email" type="email" value={form.email} onChange={onChange} />
+      <Input label="Password" name="password" type="password" value={form.password} onChange={onChange} />
+      <Button type="submit" disabled={loading}>
         {loading ? "Signing in..." : "Sign in"}
       </Button>
     </form>
