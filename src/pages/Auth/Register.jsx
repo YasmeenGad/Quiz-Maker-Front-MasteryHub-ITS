@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-
-const YEARS = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
+import { registerUser } from "../../services/api";
 
 export default function Register({ switchToLogin }) {
   const [form, setForm] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
-    role: "STUDENT",
-    year: "",
+    role: "student",
+    year: 1,
   });
   const [loading, setLoading] = useState(false);
 
@@ -20,102 +19,42 @@ export default function Register({ switchToLogin }) {
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.username || !form.email || !form.password)
-      return alert("Please fill all required fields");
-    if (form.role === "STUDENT" && !form.year)
-      return alert("Please select your year");
+  e.preventDefault();
+  if (!form.name || !form.email || !form.password) return alert("Please fill all fields");
 
-    setLoading(true);
-    try {
-      console.log("REGISTER submit", form);
-      await new Promise((r) => setTimeout(r, 700));
-      alert("Demo: register submitted");
-    } catch (err) {
-      console.error(err);
-      alert(err?.message || "Registration failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  setLoading(true);
+  try {
+    const res = await registerUser(form);
+    if (!res.success) return alert(res.message);
+
+    alert(res.message); // "User created successfully"
+    switchToLogin();
+  } catch (err) {
+    alert(err);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <form className="form" onSubmit={onSubmit}>
-      <Input
-        id="reg-username"
-        label="User Name"
-        name="username"
-        value={form.username}
-        onChange={onChange}
-      />
-
-      <Input
-        id="reg-email"
-        label="Email"
-        name="email"
-        type="email"
-        value={form.email}
-        onChange={onChange}
-      />
-
-      <Input
-        id="reg-password"
-        label="Password"
-        name="password"
-        type="password"
-        value={form.password}
-        onChange={onChange}
-      />
+      <Input label="Name" name="name" value={form.name} onChange={onChange} />
+      <Input label="Email" name="email" type="email" value={form.email} onChange={onChange} />
+      <Input label="Password" name="password" type="password" value={form.password} onChange={onChange} />
 
       <div className="form-group">
         <label className="label">Role</label>
-        <div className="role-row">
-          <label
-            className={`role-btn ${form.role === "STUDENT" ? "active" : ""}`}
-          >
-            <input
-              type="radio"
-              name="role"
-              value="STUDENT"
-              checked={form.role === "STUDENT"}
-              onChange={onChange}
-              className="visually-hidden"
-            />
-            <div className="role-title">Student</div>
-          </label>
-
-          <label
-            className={`role-btn ${form.role === "TEACHER" ? "active" : ""}`}
-          >
-            <input
-              type="radio"
-              name="role"
-              value="TEACHER"
-              checked={form.role === "TEACHER"}
-              onChange={onChange}
-              className="visually-hidden"
-            />
-            <div className="role-title">Teacher</div>
-          </label>
-        </div>
+        <select name="role" value={form.role} onChange={onChange} className="select">
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
       </div>
 
-      {(form.role === "STUDENT" || form.role === "TEACHER") && (
+      {form.role === "student" && (
         <div className="form-group">
           <label className="label">Year</label>
-          <select
-            name="year"
-            value={form.year}
-            onChange={onChange}
-            className="select"
-          >
-            <option value="">Select year</option>
-            {YEARS.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
+          <input type="number" min="1" max="4" name="year" value={form.year} onChange={onChange} className="input" />
         </div>
       )}
 

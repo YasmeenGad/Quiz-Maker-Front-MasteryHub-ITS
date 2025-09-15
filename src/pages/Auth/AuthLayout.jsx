@@ -11,27 +11,19 @@ export default function AuthLayout() {
       <div className="auth-card">
         <main className="auth-main">
           <div className="auth-header">
-            <h2 id="auth-title">
-              {mode === "login" ? "Sign in" : "Create account"}
-            </h2>
+            <h2 id="auth-title">{mode === "login" ? "Sign in" : "Create account"}</h2>
             <div className="auth-toggle">
               {mode === "login" ? (
                 <span>
                   New here?{" "}
-                  <button
-                    onClick={() => setMode("register")}
-                    className="link"
-                  >
+                  <button onClick={() => setMode("register")} className="link">
                     Register
                   </button>
                 </span>
               ) : (
                 <span>
                   Already have an account?{" "}
-                  <button
-                    onClick={() => setMode("login")}
-                    className="link"
-                  >
+                  <button onClick={() => setMode("login")} className="link">
                     Login
                   </button>
                 </span>
