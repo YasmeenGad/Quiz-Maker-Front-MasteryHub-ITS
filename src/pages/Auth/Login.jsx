@@ -24,7 +24,7 @@ export default function Login({ switchToRegister }) {
     const { access_token, user } = res.data;
     localStorage.setItem("token", access_token);
     localStorage.setItem("role", user.role);
-    if (user.role === "student") navigate("/teacher");
+    if (user.role === "student") navigate("/student");
     else navigate("/teacher");
   } catch (err) {
     alert(err);
