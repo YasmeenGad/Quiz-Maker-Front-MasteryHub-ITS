@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QuizCard from "./QuizCard";
-
-const MOCK = [
-  { id: 1, name: "Math Quiz", duration: 30, start: "2025-09-20 10:00" },
-  { id: 2, name: "Physics Quiz", duration: 20, start: "2025-09-22 14:00" },
-];
+import { getTeacherQuizzes, deleteQuiz } from "../../../services/api";
 
 export default function QuizList() {
-  const [quizzes, setQuizzes] = useState(MOCK);
+  const [quizzes, setQuizzes] = useState([]);
 
-  const deleteQuiz = (id) => {
-    setQuizzes((prev) => prev.filter((q) => q.id !== id));
+  useEffect(() => {
+    loadQuizzes();
+  }, []);
+
+  const loadQuizzes = async () => {
+    try {
+      const data = await getTeacherQuizzes();
+      setQuizzes(data);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to load quizzes");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteQuiz(id);
+      setQuizzes((prev) => prev.filter((q) => q.id !== id));
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete quiz");
+    }
   };
 
   return (
     <div className="quiz-list">
       {quizzes.map((quiz) => (
-        <QuizCard key={quiz.id} quiz={quiz} onDelete={deleteQuiz} />
+        <QuizCard key={quiz.id} quiz={quiz} onDelete={handleDelete} />
       ))}
     </div>
   );

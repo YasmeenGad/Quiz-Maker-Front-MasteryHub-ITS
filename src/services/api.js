@@ -1,37 +1,46 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/auth";  
+const BASE_URL = "http://localhost:3000/api/v1";
+
+const getAuthHeaders = () => ({
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
+
+
 
 export const registerUser = async (data) => {
-  try {
-    const res = await axios.post(`${API_URL}/register`, data, {
-      headers: { "Content-Type": "application/json" },
-    });
-    return res.data;
-  } catch (err) {
-    throw err.response?.data?.message || "Registration failed";
-  }
+  const res = await axios.post(`${BASE_URL}/auth/register`, data, { headers: { "Content-Type": "application/json" } });
+  return res.data;
 };
 
 export const loginUser = async (data) => {
-  try {
-    const res = await axios.post(`${API_URL}/login`, data, {
-      headers: { "Content-Type": "application/json" },
-    });
-    return res.data;
-  } catch (err) {
-    throw err.response?.data?.message || "Login failed";
-  }
+  const res = await axios.post(`${BASE_URL}/auth/login`, data, { headers: { "Content-Type": "application/json" } });
+  return res.data;
 };
 
 export const getUser = async () => {
-  const token = localStorage.getItem("token");
-  try {
-    const res = await axios.get(`${API_URL}/me`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return res.data;
-  } catch (err) {
-    throw err.response?.data?.message || "Failed to fetch user";
-  }
+  const res = await axios.get(`${BASE_URL}/auth/me`, { headers: getAuthHeaders() });
+  return res.data;
+};
+
+export const logoutUser = async () => {
+  const res = await axios.post(`${BASE_URL}/auth/logout`, {}, { headers: getAuthHeaders() });
+  return res.data;
+};
+
+export const createQuiz = async (data) => {
+  const res = await axios.post(`${BASE_URL}/quiz`, data, {
+    headers: { ...getAuthHeaders(), "Content-Type": "application/json" }
+  });
+  return res.data.data;
+};
+
+export const getTeacherQuizzes = async () => {
+  const res = await axios.get(`${BASE_URL}/quiz/teacher`, { headers: getAuthHeaders() });
+  return res.data.data;
+};
+
+export const deleteQuiz = async (id) => {
+  const res = await axios.delete(`${BASE_URL}/quiz/${id}`, { headers: getAuthHeaders() });
+  return res.data;
 };
