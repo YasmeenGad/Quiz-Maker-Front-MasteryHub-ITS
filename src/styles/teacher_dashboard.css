@@ -25,7 +25,7 @@
   border-radius: 16px;
   margin-bottom: 30px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  position: relative; /* for absolute positioning of logout */
+  position: relative; 
 }
 
 .logout-container {
@@ -51,14 +51,14 @@
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* Main grid */
+
 .dashboard-main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 35px;
 }
 
-/* Section titles */
+
 .quizzes-section h3,
 .create-section h3 {
   display: flex;
@@ -68,7 +68,6 @@
   font-size: 20px;
 }
 
-/* QuizCard */
 .quiz-card {
   background: white;
   padding: 20px;
@@ -108,7 +107,6 @@
   transform: scale(1.05);
 }
 
-/* Form */
 .form {
   display: flex;
   flex-direction: column;
@@ -149,9 +147,31 @@
   transform: scale(1.04);
 }
 
-/* Responsive */
 @media (max-width: 950px) {
   .dashboard-main {
     grid-template-columns: 1fr;
   }
+}
+
+.btn-add {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: 0.25s ease-in-out;
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.25);
+}
+
+.btn-add:hover {
+  background: #059669;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.35);
 }

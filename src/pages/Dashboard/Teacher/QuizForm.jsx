@@ -36,12 +36,18 @@ export default function QuizForm({ onQuizCreated }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newQuiz = await createQuiz(form);
+      const payload = {
+        ...form,
+        duration: Number(form.duration),
+        start: new Date(form.start).toISOString(),
+      };
+
+      const newQuiz = await createQuiz(payload);
       alert("Quiz created successfully!");
       onQuizCreated(newQuiz);
       setForm({ name: "", duration: "", start: "", questions: [] });
     } catch (err) {
-      console.error(err);
+      console.error(err.response?.data || err);
       alert("Failed to create quiz");
     }
   };
@@ -96,7 +102,7 @@ export default function QuizForm({ onQuizCreated }) {
           />
         </>
       )}
-      <button type="button" onClick={addQuestion}>
+      <button type="button" className="btn-add" onClick={addQuestion}>
         Add Question
       </button>
 

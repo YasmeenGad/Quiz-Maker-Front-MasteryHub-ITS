@@ -29,16 +29,18 @@ export const logoutUser = async () => {
 };
 
 export const createQuiz = async (data) => {
-  const res = await axios.post(`${BASE_URL}/quiz`, data, {headers: { ...getAuthHeaders(), "Content-Type": "application/json" } });
-  return res.data.data;   
+  const res = await axios.post(`${BASE_URL}/quiz`, data, {
+    headers: { ...getAuthHeaders(), "Content-Type": "application/json" }
+  });
+  return res.data.data;
 };
 
 export const getTeacherQuizzes = async () => {
-  const res = await axios.get(`${BASE_URL}/teacher`, { headers: getAuthHeaders() });
-  return res.data.data;  
+  const res = await axios.get(`${BASE_URL}/quiz/teacher`, { headers: getAuthHeaders() });
+  return res.data.data;
 };
 
 export const deleteQuiz = async (id) => {
-  const res = await axios.delete(`${BASE_URL}/${id}`, { headers: getAuthHeaders() });
+  const res = await axios.delete(`${BASE_URL}/quiz/${id}`, { headers: getAuthHeaders() });
   return res.data;
 };

@@ -3,11 +3,13 @@ import QuizList from "./QuizList";
 import QuizForm from "./QuizForm";
 import "../../../styles/teacher_dashboard.css";
 import { FiLogOut, FiPlusCircle, FiClipboard } from "react-icons/fi";
-import { getTeacherQuizzes, deleteQuiz } from "../../../services/api";
+import { getTeacherQuizzes, deleteQuiz, logoutUser } from "../../../services/api";
+import { useNavigate } from "react-router-dom";  
 
 export default function TeacherDashboard() {
   const [quizzes, setQuizzes] = useState([]);
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     loadQuizzes();
   }, []);
@@ -31,8 +33,18 @@ export default function TeacherDashboard() {
       await deleteQuiz(id);
       setQuizzes((prev) => prev.filter((q) => q.id !== id));
     } catch (err) {
-      console.error(err);
       alert("Failed to delete quiz");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+    } catch (err) {
+      console.error("Logout API failed", err);
+    } finally {
+      localStorage.removeItem("token"); 
+      navigate("/login"); 
     }
   };
 
@@ -44,7 +56,7 @@ export default function TeacherDashboard() {
           Teacher Dashboard
         </h2>
         <div className="logout-container">
-          <button className="btn logout-btn">
+          <button className="btn logout-btn" onClick={handleLogout}>
             <FiLogOut style={{ marginRight: "6px" }} /> Logout
           </button>
         </div>
