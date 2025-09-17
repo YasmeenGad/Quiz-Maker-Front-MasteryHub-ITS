@@ -62,3 +62,10 @@ export const submitQuiz = async (quizId, answers) => {
   );
   return res.data;
 };
+
+export const getQuizDetails = async (quizId) => {
+  const res = await axios.get(`${BASE_URL}/quiz/${quizId}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.data.data;
+};
