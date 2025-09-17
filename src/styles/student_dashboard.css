@@ -1,86 +1,198 @@
-/* Root Layout */
 .dashboard-root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
-  background: #f3f4f6; /* Light Gray */
+  background: #f4f5f9;
   padding: 20px;
 }
 
-/* Header */
 .dashboard-header.student {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #10b981; /* Emerald green */
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
   color: white;
-  padding: 15px 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 22px 30px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  position: relative;
 }
 
-/* Main Layout */
-.dashboard-main {
+.dashboard-header.student h2 {
   display: flex;
-  justify-content: center;
-}
-
-/* Quizzes Section */
-.student-quizzes {
-  width: 100%;
-  max-width: 800px;
-}
-
-.student-quizzes h3 {
-  margin-bottom: 15px;
-  color: #111827;
-}
-
-/* Quiz Card */
-.quiz-card {
-  background: white;
-  padding: 18px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  transition: 0.2s;
-}
-
-.quiz-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-.quiz-card h4 {
-  margin-bottom: 8px;
-  color: #1f2937;
+  align-items: center;
+  font-size: 24px;
   font-weight: 600;
 }
 
-.quiz-card p {
-  margin: 3px 0;
-  color: #6b7280;
+.dashboard-header.student .btn {
+  display: flex;
+  align-items: center;
+  background: #ef4444;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: 500;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Buttons */
-.btn {
-  background: #10b981;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-weight: 500;
+.dashboard-header.student .btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
-.btn:hover {
-  background: #059669;
+
+.dashboard-main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 30px;
+}
+
+.student-quizzes {
+  width: 100%;
+  max-width: 900px;
+}
+
+.student-quizzes h3 {
+  margin-bottom: 20px;
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.quiz-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.quiz-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 22px rgba(0,0,0,0.12);
+}
+
+.quiz-card h4 {
+  margin: 0;
+  color: #111827;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.quiz-card p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
 }
 
 .quiz-locked {
   color: #ef4444;
   font-weight: 500;
-  margin-top: 8px;
+  margin-top: 6px;
+}
+
+.btn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s;
+  font-weight: 500;
+  text-align: center;
+  max-width: 160px;
+}
+.btn:hover {
+  background: #6366f1;
+  transform: scale(1.05);
+}
+
+.quiz-taking-root {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 25px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.quiz-taking-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.quiz-taking-header p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.question-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.question-text {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.input {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: 0.25s;
+}
+.input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 8px rgba(16,185,129,0.25);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.option input[type="radio"] {
+  margin-right: 8px;
+}
+
+@media (max-width: 950px) {
+  .student-quizzes {
+    max-width: 100%;
+  }
+
+  .dashboard-main {
+    flex-direction: column;
+    gap: 20px;
+  }
 }

@@ -20,6 +20,7 @@ export const loginUser = async (data) => {
 
 export const getUser = async () => {
   const res = await axios.get(`${BASE_URL}/auth/me`, { headers: getAuthHeaders() });
+  console.log("Response from /auth/me:", res.data);
   return res.data;
 };
 
@@ -30,9 +31,9 @@ export const logoutUser = async () => {
 
 export const createQuiz = async (data) => {
   const res = await axios.post(`${BASE_URL}/quiz`, data, {
-    headers: { ...getAuthHeaders(), "Content-Type": "application/json" }
-  });
-  return res.data.data;
+    headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+  }); 
+  return res.data.data; 
 };
 
 export const getTeacherQuizzes = async () => {
@@ -52,20 +53,20 @@ export const getStudentQuizzes = async () => {
   return res.data.data;
 };
 
+export const getQuizDetails = async (quizId) => {
+  const res = await axios.get(`${BASE_URL}/quiz/student/${quizId}`, {
+    headers: getAuthHeaders(),
+  });
+  return res.data.data;
+};
+
 export const submitQuiz = async (quizId, answers) => {
   const res = await axios.post(
-    `${BASE_URL}/quiz/${quizId}/submit`,
+    `${BASE_URL}/quiz/student/${quizId}/submit`,
     { answers },
     {
       headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
     }
   );
   return res.data;
-};
-
-export const getQuizDetails = async (quizId) => {
-  const res = await axios.get(`${BASE_URL}/quiz/${quizId}`, {
-    headers: getAuthHeaders(),
-  });
-  return res.data.data;
 };

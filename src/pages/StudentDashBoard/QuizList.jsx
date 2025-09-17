@@ -1,10 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getStudentQuizzes } from "../api";
 import { Link } from "react-router-dom";
-
-const QUIZZES = [
-  { id: 1, name: "Math Quiz", start: "2025-09-20 10:00", duration: 30 },
-  { id: 2, name: "Physics Quiz", start: "2025-09-22 14:00", duration: 20 },
-];
 
 const isQuizAvailable = (start, duration) => {
   const startTime = new Date(start);
@@ -14,9 +10,17 @@ const isQuizAvailable = (start, duration) => {
 };
 
 export default function QuizList() {
+  const [quizzes, setQuizzes] = useState([]);
+
+  useEffect(() => {
+    getStudentQuizzes().then((res) => {
+      if (res) setQuizzes(res);
+    });
+  }, []);
+
   return (
     <div className="quiz-list">
-      {QUIZZES.map((q) => {
+      {quizzes.map((q) => {
         const available = isQuizAvailable(q.start, q.duration);
         return (
           <div key={q.id} className="quiz-card">

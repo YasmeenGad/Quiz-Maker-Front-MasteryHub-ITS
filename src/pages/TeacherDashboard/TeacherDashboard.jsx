@@ -3,8 +3,8 @@ import QuizList from "./QuizList";
 import QuizForm from "./QuizForm";
 import "../../../styles/teacher_dashboard.css";
 import { FiLogOut, FiPlusCircle, FiClipboard } from "react-icons/fi";
-import { getTeacherQuizzes, deleteQuiz, logoutUser } from "../../../services/api";
-import { useNavigate } from "react-router-dom";  
+import { getTeacherQuizzes, deleteQuiz, logoutUser } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function TeacherDashboard() {
   const [quizzes, setQuizzes] = useState([]);
@@ -63,20 +63,16 @@ export default function TeacherDashboard() {
       </header>
 
       <main className="dashboard-main">
+        <section className="create-section">
+          <QuizForm onQuizCreated={handleQuizCreated} />
+        </section>
+
         <section className="quizzes-section">
           <h3>
             <FiClipboard style={{ marginRight: "8px" }} />
             Your Quizzes
           </h3>
           <QuizList quizzes={quizzes} onDelete={handleDelete} />
-        </section>
-
-        <section className="create-section">
-          <h3>
-            <FiPlusCircle style={{ marginRight: "8px" }} />
-            Create New Quiz
-          </h3>
-          <QuizForm onQuizCreated={handleQuizCreated} />
         </section>
       </main>
     </div>

@@ -5,7 +5,7 @@ export default function QuizCard({ quiz, onDelete }) {
     <div className="quiz-card">
       <h4>{quiz.name}</h4>
       <p>Duration: {quiz.duration} mins</p>
-      <p>Start: {quiz.start}</p>
+      <p>Start: {new Date(quiz.start).toLocaleString()}</p>
       <button className="btn-danger" onClick={() => onDelete(quiz.id)}>
         Delete
       </button>
