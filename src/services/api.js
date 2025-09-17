@@ -44,3 +44,21 @@ export const deleteQuiz = async (id) => {
   const res = await axios.delete(`${BASE_URL}/quiz/${id}`, { headers: getAuthHeaders() });
   return res.data;
 };
+
+export const getStudentQuizzes = async () => {
+  const res = await axios.get(`${BASE_URL}/quiz/student`, {
+    headers: getAuthHeaders(),
+  });
+  return res.data.data;
+};
+
+export const submitQuiz = async (quizId, answers) => {
+  const res = await axios.post(
+    `${BASE_URL}/quiz/${quizId}/submit`,
+    { answers },
+    {
+      headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+    }
+  );
+  return res.data;
+};

@@ -6,7 +6,6 @@ const QUIZZES = [
   { id: 2, name: "Physics Quiz", start: "2025-09-22 14:00", duration: 20 },
 ];
 
-// helper to check if quiz is available now
 const isQuizAvailable = (start, duration) => {
   const startTime = new Date(start);
   const endTime = new Date(startTime.getTime() + duration * 60000);
