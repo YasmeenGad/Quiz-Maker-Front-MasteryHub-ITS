@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUser, getStudentQuizzes, logoutUser } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
-import "../../../styles/student_dashboard.css";
+import "../../styles/student_dashboard.css";
 import { FiLogOut, FiClipboard } from "react-icons/fi";
 
 const isQuizAvailable = (start, duration) => {

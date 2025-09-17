@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import QuizList from "./QuizList";
+import QuizList from "./TeacherQuizzes";
 import QuizForm from "./QuizForm";
-import "../../../styles/teacher_dashboard.css";
+import "../../styles/teacher_dashboard.css";
 import { FiLogOut, FiPlusCircle, FiClipboard } from "react-icons/fi";
 import { getTeacherQuizzes, deleteQuiz, logoutUser } from "../../services/api";
 import { useNavigate } from "react-router-dom";
