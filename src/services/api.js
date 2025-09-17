@@ -19,7 +19,7 @@ export const loginUser = async (data) => {
 };
 
 export const getUser = async () => {
-  const res = await axios.get(`${BASE_URL}/auth/me`, { headers: getAuthHeaders() });
+  const res = await axios.get(`${BASE_URL}/auth/profile`, { headers: getAuthHeaders() });
   console.log("Response from /auth/me:", res.data);
   return res.data;
 };
